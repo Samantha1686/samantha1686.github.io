@@ -3,8 +3,10 @@
 =========== */
 const STORAGE_KEY = "ss_portfolio_projects_v1";
 const PROFILE_IMAGE_KEY = "ss_portfolio_profile_image_v1";
-const OLD_DEFAULT_PROFILE_IMAGE = "images/profile/Screenshot_20251107_194643_Snapchat(1).jpg";
-const DEFAULT_PROFILE_IMAGE = "images/profile/profile-photo.jpg";
+const OLD_DEFAULT_PROFILE_IMAGE = "images/profile/profile-photo.jpg";
+const LEGACY_DEFAULT_PROFILE_IMAGE = "images/profile/Screenshot_20251107_194643_Snapchat(1).jpg";
+const PREVIOUS_DEFAULT_PROFILE_IMAGE = "images/profile/Screenshot_20251107_194643_Snapchat.jpg";
+const DEFAULT_PROFILE_IMAGE = "images/profile/Screenshot_20260202_200135_Snapchat.jpg";
 const FILM_PERMIT_IMAGE = "images/projects/film-permits-student.png";
 const FILM_PERMIT_MEDIA = "images/projects/Film_Permits_Student.xlsx";
 const GRAMMY_MEDIA = "images/projects/Copy of Grammys Social Media Project.pptx1.pdf";
@@ -430,7 +432,12 @@ function saveProjects(nextProjects) {
 
 function loadProfileImage() {
   const stored = String(localStorage.getItem(PROFILE_IMAGE_KEY) || "").trim();
-  if (!stored || stored === OLD_DEFAULT_PROFILE_IMAGE) {
+  if (
+    !stored ||
+    stored === OLD_DEFAULT_PROFILE_IMAGE ||
+    stored === LEGACY_DEFAULT_PROFILE_IMAGE ||
+    stored === PREVIOUS_DEFAULT_PROFILE_IMAGE
+  ) {
     return DEFAULT_PROFILE_IMAGE;
   }
   return stored;
@@ -886,10 +893,17 @@ function refreshAll() {
   renderAdminList();
 }
 
+function applyProfileAvatarRuntimeStyles() {
+  profileAvatarImage.style.setProperty("object-fit", "contain", "important");
+  profileAvatarImage.style.setProperty("object-position", "center top", "important");
+  profileAvatarImage.style.setProperty("background", "rgba(11,18,32,.85)", "important");
+}
+
 function renderProfileImage() {
   const hasImage = Boolean(profileImage);
   if (hasImage) {
     profileAvatarImage.src = profileImage;
+    applyProfileAvatarRuntimeStyles();
     profileAvatarImage.hidden = false;
     profileAvatarInitials.hidden = true;
 
