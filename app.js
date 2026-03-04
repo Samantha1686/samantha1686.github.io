@@ -906,19 +906,15 @@ function renderProfileImage() {
     applyProfileAvatarRuntimeStyles();
     profileAvatarImage.hidden = false;
     profileAvatarInitials.hidden = true;
-
-    brandAvatarImage.src = profileImage;
-    brandAvatarImage.hidden = false;
-    brandAvatarInitials.hidden = true;
   } else {
     profileAvatarImage.removeAttribute("src");
     profileAvatarImage.hidden = true;
     profileAvatarInitials.hidden = false;
-
-    brandAvatarImage.removeAttribute("src");
-    brandAvatarImage.hidden = true;
-    brandAvatarInitials.hidden = false;
   }
+
+  brandAvatarImage.removeAttribute("src");
+  brandAvatarImage.hidden = true;
+  brandAvatarInitials.hidden = false;
 }
 
 function syncProfileImageInput() {
