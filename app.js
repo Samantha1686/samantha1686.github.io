@@ -542,9 +542,9 @@ function projectSortRank(project) {
   if (key.includes("ab testing") || key.includes("recording academy")) return 1;
   if (key.includes("intel csr metrics") || key.includes("sustainability data analysis")) return 2;
   if (key.includes("sustainability impact analysis") || key.includes("excel dataset")) return 3;
-  if (key === normalizeProjectKey(CHARITY_PROJECT_1_TITLE)) return 4;
-  if (key === normalizeProjectKey(CHARITY_PROJECT_2_TITLE)) return 5;
-  if (key === normalizeProjectKey(CHARITY_PROJECT_3_TITLE)) return 6;
+  if (key.includes("charity water project 1") || key.includes("mockup landing page")) return 4;
+  if (key.includes("charity water project 2") || key.includes("game concept")) return 5;
+  if (key.includes("charity water project 3") || key.includes("charity water") && key.includes("landing page")) return 6;
   if (isFilmPermitProjectKey(key)) return 7;
   return 100;
 }
@@ -989,6 +989,7 @@ function deleteProject(id) {
 }
 
 function refreshAll() {
+  projects = sortProjectsByPreferredOrder(projects);
   setStats();
   renderSkillChips();
   renderTagFilter();
