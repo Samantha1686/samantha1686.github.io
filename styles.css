@@ -270,6 +270,48 @@ h1{
 }
 .bullets{ margin:12px 0 0; color:var(--muted); line-height:1.6; }
 
+.cert-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:14px;
+}
+.cert-subhead{
+  margin-top: 18px;
+  margin-bottom: 14px;
+}
+.cert-subhead h3{
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+.cert-subhead p{
+  margin: 0;
+}
+@media (max-width: 900px){
+  .cert-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px){
+  .cert-grid{ grid-template-columns: 1fr; }
+}
+.cert-card{
+  padding:16px;
+}
+.cert-card h3{
+  margin:0 0 8px;
+  font-size:18px;
+}
+.cert-card p{
+  margin:0;
+  line-height:1.55;
+}
+.cert-issuer{
+  font-size:12px;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+  font-weight:800;
+  color:#d7fff1;
+  margin:0 0 8px;
+}
+
 .contact-card{
   border:1px solid var(--line);
   border-radius:16px;

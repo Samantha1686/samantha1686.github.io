@@ -9,7 +9,10 @@ const PREVIOUS_DEFAULT_PROFILE_IMAGE = "images/profile/Screenshot_20251107_19464
 const DEFAULT_PROFILE_IMAGE = "images/profile/Screenshot_20260202_200135_Snapchat.jpg";
 const FILM_PERMIT_IMAGE = "images/projects/film-permits-student.png";
 const FILM_PERMIT_MEDIA = "images/projects/Film_Permits_Student.xlsx";
+const AB_TESTING_MEDIA = "images/projects/AB-Testing-The-Recording-Academy%20(1)%20(1).xlsx";
 const GRAMMY_MEDIA = "images/projects/Copy of Grammys Social Media Project.pptx1.pdf";
+const GRAMMY_PROJECT_TITLE = "Project 7 - GRAMMY Awards Social Media Campaign Concept";
+const AB_TESTING_PROJECT_TITLE = "Project 8 - A/B Testing - The Recording Academy";
 const INTEL_CSR_MEDIA = "images/projects/Intel's Corporate Responsibilty Report.pdf";
 const INTEL_CSR_IMAGES = [
   "images/projects/sustainability-data-analysis-intel-csr-metrics-1.png",
@@ -19,6 +22,9 @@ const INTEL_CSR_IMAGES = [
 const INTEL_EXCEL_MEDIA = "images/projects/Project-Sustainability-Impact-Analysis.xlsx";
 const PROJECT_IMAGE_LIBRARY = {
   "grammy awards social media campaign concept": [
+    "images/projects/grammy-awards-social-media-campaign-concept.png"
+  ],
+  "project 7 grammy awards social media campaign concept": [
     "images/projects/grammy-awards-social-media-campaign-concept.png"
   ],
   "sustainability data analysis intel csr metrics": [...INTEL_CSR_IMAGES],
@@ -45,6 +51,10 @@ const PROJECT_IMAGE_LIBRARY = {
 };
 const PROJECT_MEDIA_LIBRARY = {
   "grammy awards social media campaign concept": GRAMMY_MEDIA,
+  "project 7 grammy awards social media campaign concept": GRAMMY_MEDIA,
+  "ab testing the recording academy": AB_TESTING_MEDIA,
+  "project 8 a b testing the recording academy": AB_TESTING_MEDIA,
+  "recording academy ab testing": AB_TESTING_MEDIA,
   "sustainability data analysis intel csr metrics": INTEL_CSR_MEDIA,
   "sustainability impact analysis excel dataset": INTEL_EXCEL_MEDIA,
   "film permits student": FILM_PERMIT_MEDIA,
@@ -55,7 +65,7 @@ function defaultProjects() {
   return [
     {
       id: crypto.randomUUID(),
-      title: "GRAMMY Awards Social Media Campaign Concept",
+      title: GRAMMY_PROJECT_TITLE,
       type: "Campaign",
       summary: "Developed a brand-focused social campaign concept promoting a limited-edition merchandise drop.",
       bullets: [
@@ -73,6 +83,7 @@ function defaultProjects() {
       ],
       createdAt: Date.now()
     },
+    abTestingProjectTemplate(),
     intelCsrProjectTemplate(),
     intelExcelProjectTemplate(),
     {
@@ -161,6 +172,29 @@ function filmPermitProjectTemplate() {
     images: [FILM_PERMIT_IMAGE],
     feedback: [
       "Clear analysis direction—consider adding one chart snapshot to highlight the top insight."
+    ],
+    createdAt: Date.now()
+  };
+}
+
+function abTestingProjectTemplate() {
+  return {
+    id: crypto.randomUUID(),
+    title: AB_TESTING_PROJECT_TITLE,
+    type: "Analytics",
+    summary: "Analyzed A/B test results to evaluate messaging and engagement performance for The Recording Academy.",
+    bullets: [
+      "Compared variant performance to identify stronger content and CTA direction",
+      "Reviewed core metrics in Excel to determine winner and uplift",
+      "Summarized recommendations for campaign optimization"
+    ],
+    skills: ["Excel", "A/B Testing", "Data Analysis", "Reporting"],
+    tags: ["Analytics", "Excel", "Experimentation"],
+    link: "",
+    media: AB_TESTING_MEDIA,
+    images: [],
+    feedback: [
+      "Add one concise chart or table snapshot in the project notes to highlight the winning variant."
     ],
     createdAt: Date.now()
   };
@@ -286,6 +320,7 @@ function migrateProjects(rawProjects) {
 
   const templates = charityProjectTemplates();
   const filmPermitTemplate = filmPermitProjectTemplate();
+  const abTestingTemplate = abTestingProjectTemplate();
   const intelCsrTemplate = intelCsrProjectTemplate();
   const intelExcelTemplate = intelExcelProjectTemplate();
   const oldTitle = "charity: water Donation Landing Page Campaign";
@@ -300,6 +335,10 @@ function migrateProjects(rawProjects) {
   const hasExcelProject = rawProjects.some(item => {
     const key = normalizeProjectKey(item?.title);
     return key.includes("sustainability impact analysis") || key.includes("excel dataset");
+  });
+  const hasAbTestingProject = rawProjects.some(item => {
+    const key = normalizeProjectKey(item?.title);
+    return key.includes("ab testing") || key.includes("recording academy");
   });
 
   let next = rawProjects.filter(item => normalizeProjectKey(item?.title) !== normalizeProjectKey(oldTitle));
@@ -344,18 +383,26 @@ function migrateProjects(rawProjects) {
     changed = true;
   }
 
+  if (!hasAbTestingProject) {
+    next.push(abTestingTemplate);
+    changed = true;
+  }
+
   next = next.map(project => {
     const key = normalizeProjectKey(project?.title);
     const isGrammy = key.includes("grammy") && key.includes("social media");
     const isCsr = key.includes("intel csr metrics") || key.includes("sustainability data analysis");
     const isExcel = key.includes("sustainability impact analysis") || key.includes("excel dataset");
+    const isAbTesting = key.includes("ab testing") || key.includes("recording academy");
     if (isGrammy) {
       const currentMedia = String(project.media || "").trim();
       const nextMedia = currentMedia || GRAMMY_MEDIA;
       const sameMedia = currentMedia === nextMedia;
-      if (!sameMedia) changed = true;
+      const sameTitle = String(project.title || "") === GRAMMY_PROJECT_TITLE;
+      if (!sameMedia || !sameTitle) changed = true;
       return {
         ...project,
+        title: GRAMMY_PROJECT_TITLE,
         media: nextMedia
       };
     }
@@ -382,6 +429,21 @@ function migrateProjects(rawProjects) {
       if (!sameMedia || !sameImages) changed = true;
       return {
         ...project,
+        media: nextMedia,
+        images: []
+      };
+    }
+
+    if (isAbTesting) {
+      const currentMedia = String(project.media || "").trim();
+      const nextMedia = AB_TESTING_MEDIA;
+      const sameMedia = currentMedia === nextMedia;
+      const sameImages = JSON.stringify(project.images || []) === JSON.stringify([]);
+      const sameTitle = String(project.title || "") === AB_TESTING_PROJECT_TITLE;
+      if (!sameMedia || !sameImages || !sameTitle) changed = true;
+      return {
+        ...project,
+        title: AB_TESTING_PROJECT_TITLE,
         media: nextMedia,
         images: []
       };
@@ -465,6 +527,16 @@ function esc(str) {
 
 function byNewest(a, b) {
   return (b.createdAt || 0) - (a.createdAt || 0);
+}
+
+function sortProjectsNewestFirst(list) {
+  return [...list].sort((a, b) => {
+    const byDate = byNewest(a, b);
+    if (byDate !== 0) return byDate;
+
+    // If timestamps are identical/missing, keep newest additions first.
+    return projects.indexOf(b) - projects.indexOf(a);
+  });
 }
 
 function splitLines(raw) {
@@ -684,10 +756,9 @@ function renderExcelPreviewSheet(sheetName) {
 function currentFilteredProjects() {
   const q = searchInput.value.trim();
   const tag = tagFilter.value;
-  return projects
+  return sortProjectsNewestFirst(projects
     .filter(p => matchesQuery(p, q))
-    .filter(p => matchesTag(p, tag))
-    .sort(byNewest);
+    .filter(p => matchesTag(p, tag)));
 }
 
 function renderProjects() {
@@ -736,8 +807,7 @@ function renderProjects() {
 
 function renderAdminList() {
   if (!adminList) return;
-  adminList.innerHTML = projects
-    .sort(byNewest)
+  adminList.innerHTML = sortProjectsNewestFirst(projects)
     .map(p => {
       const firstImage = getProjectImages(p)[0] || "";
       const imagePreview = firstImage
