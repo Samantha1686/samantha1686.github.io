@@ -552,6 +552,14 @@ function canonicalProjectKey(project) {
   return "other";
 }
 
+function getProjectNumber(project) {
+  const title = String(project?.title || "");
+  const match = title.match(/\bproject\s*(\d+)\b/i);
+  if (!match) return null;
+  const value = Number(match[1]);
+  return Number.isFinite(value) ? value : null;
+}
+
 function projectSortRank(project) {
   const key = canonicalProjectKey(project);
   const order = {
@@ -571,6 +579,15 @@ function projectSortRank(project) {
 function sortProjectsByPreferredOrder(list) {
   const indexed = list.map((project, index) => ({ project, index }));
   indexed.sort((a, b) => {
+    const aNumber = getProjectNumber(a.project);
+    const bNumber = getProjectNumber(b.project);
+    const hasANumber = aNumber !== null;
+    const hasBNumber = bNumber !== null;
+
+    // Keep numbered projects in descending order so lower numbers settle later in the grid.
+    if (hasANumber && hasBNumber && aNumber !== bNumber) return bNumber - aNumber;
+    if (hasANumber !== hasBNumber) return hasANumber ? -1 : 1;
+
     const rankDiff = projectSortRank(a.project) - projectSortRank(b.project);
     if (rankDiff !== 0) return rankDiff;
     return a.index - b.index;
