@@ -60,6 +60,10 @@ const PROJECT_MEDIA_LIBRARY = {
   "film permits student": FILM_PERMIT_MEDIA,
   "film permit project": FILM_PERMIT_MEDIA
 };
+const CHARITY_PROJECT_1_TITLE = "charity: water Project 1 — Mockup Landing Page";
+const CHARITY_PROJECT_2_TITLE = "charity: water Project 2 — Game Concept";
+const CHARITY_PROJECT_3_TITLE = "charity: water Project 3 — Landing Page";
+const FILM_PERMIT_PROJECT_TITLE = "Film Permit Analysis Project";
 
 function defaultProjects() {
   return [
@@ -88,7 +92,7 @@ function defaultProjects() {
     intelExcelProjectTemplate(),
     {
       id: crypto.randomUUID(),
-      title: "charity: water Project 1 — Mockup Landing Page",
+      title: CHARITY_PROJECT_1_TITLE,
       type: "Landing Page",
       summary: "Created a charity: water mockup landing page concept tailored for student-focused nonprofit storytelling.",
       bullets: [
@@ -109,7 +113,7 @@ function defaultProjects() {
     },
     {
       id: crypto.randomUUID(),
-      title: "charity: water Project 2 — Game Concept",
+      title: CHARITY_PROJECT_2_TITLE,
       type: "Campaign Concept",
       summary: "Developed a gamified campaign concept to increase engagement and support for charity: water.",
       bullets: [
@@ -132,7 +136,7 @@ function defaultProjects() {
     },
     {
       id: crypto.randomUUID(),
-      title: "charity: water Project 3 — Landing Page",
+      title: CHARITY_PROJECT_3_TITLE,
       type: "Landing Page",
       summary: "Built a second landing page direction with a refined structure and message hierarchy.",
       bullets: [
@@ -157,7 +161,7 @@ function defaultProjects() {
 function filmPermitProjectTemplate() {
   return {
     id: crypto.randomUUID(),
-    title: "Film Permit Analysis Project",
+    title: FILM_PERMIT_PROJECT_TITLE,
     type: "Analytics",
     summary: "Analyzed student film permit data to identify trends and reporting insights.",
     bullets: [
@@ -250,7 +254,7 @@ function charityProjectTemplates() {
   return [
     {
       id: crypto.randomUUID(),
-      title: "charity: water Project 1 — Mockup Landing Page",
+      title: CHARITY_PROJECT_1_TITLE,
       type: "Landing Page",
       summary: "Created a charity: water mockup landing page concept tailored for student-focused nonprofit storytelling.",
       bullets: [
@@ -271,7 +275,7 @@ function charityProjectTemplates() {
     },
     {
       id: crypto.randomUUID(),
-      title: "charity: water Project 2 — Game Concept",
+      title: CHARITY_PROJECT_2_TITLE,
       type: "Campaign Concept",
       summary: "Developed a gamified campaign concept to increase engagement and support for charity: water.",
       bullets: [
@@ -294,7 +298,7 @@ function charityProjectTemplates() {
     },
     {
       id: crypto.randomUUID(),
-      title: "charity: water Project 3 — Landing Page",
+      title: CHARITY_PROJECT_3_TITLE,
       type: "Landing Page",
       summary: "Built a second landing page direction with a refined structure and message hierarchy.",
       bullets: [
@@ -466,7 +470,10 @@ function migrateProjects(rawProjects) {
     return project;
   });
 
-  return changed ? next.sort(byNewest) : rawProjects;
+  const ordered = sortProjectsByPreferredOrder(next);
+  const orderChanged = ordered.length !== next.length || ordered.some((project, index) => project !== next[index]);
+  if (orderChanged) changed = true;
+  return changed ? ordered : rawProjects;
 }
 
 /* =========
@@ -529,6 +536,29 @@ function byNewest(a, b) {
   return (b.createdAt || 0) - (a.createdAt || 0);
 }
 
+function projectSortRank(project) {
+  const key = normalizeProjectKey(project?.title);
+  if (key.includes("grammy") && key.includes("social media")) return 0;
+  if (key.includes("ab testing") || key.includes("recording academy")) return 1;
+  if (key.includes("intel csr metrics") || key.includes("sustainability data analysis")) return 2;
+  if (key.includes("sustainability impact analysis") || key.includes("excel dataset")) return 3;
+  if (key === normalizeProjectKey(CHARITY_PROJECT_1_TITLE)) return 4;
+  if (key === normalizeProjectKey(CHARITY_PROJECT_2_TITLE)) return 5;
+  if (key === normalizeProjectKey(CHARITY_PROJECT_3_TITLE)) return 6;
+  if (isFilmPermitProjectKey(key)) return 7;
+  return 100;
+}
+
+function sortProjectsByPreferredOrder(list) {
+  const indexed = list.map((project, index) => ({ project, index }));
+  indexed.sort((a, b) => {
+    const rankDiff = projectSortRank(a.project) - projectSortRank(b.project);
+    if (rankDiff !== 0) return rankDiff;
+    return a.index - b.index;
+  });
+  return indexed.map(item => item.project);
+}
+
 function sortProjectsNewestFirst(list) {
   return [...list].sort((a, b) => {
     const byDate = byNewest(a, b);
@@ -587,7 +617,7 @@ function getProjectImages(project) {
 /* =========
   State
 =========== */
-let projects = loadProjects().sort(byNewest);
+let projects = sortProjectsByPreferredOrder(loadProjects());
 let profileImage = loadProfileImage();
 let excelPreviewState = null;
 
@@ -756,9 +786,9 @@ function renderExcelPreviewSheet(sheetName) {
 function currentFilteredProjects() {
   const q = searchInput.value.trim();
   const tag = tagFilter.value;
-  return sortProjectsNewestFirst(projects
+  return projects
     .filter(p => matchesQuery(p, q))
-    .filter(p => matchesTag(p, tag)));
+    .filter(p => matchesTag(p, tag));
 }
 
 function renderProjects() {
@@ -807,7 +837,7 @@ function renderProjects() {
 
 function renderAdminList() {
   if (!adminList) return;
-  adminList.innerHTML = sortProjectsNewestFirst(projects)
+  adminList.innerHTML = projects
     .map(p => {
       const firstImage = getProjectImages(p)[0] || "";
       const imagePreview = firstImage
@@ -949,7 +979,7 @@ function upsertProject(nextProject) {
   } else {
     projects.push(nextProject);
   }
-  projects.sort(byNewest);
+  projects = sortProjectsByPreferredOrder(projects);
   saveProjects(projects);
 }
 
@@ -969,7 +999,7 @@ function refreshAll() {
 function applyProfileAvatarRuntimeStyles() {
   profileAvatarImage.style.setProperty("object-fit", "contain", "important");
   profileAvatarImage.style.setProperty("object-position", "center top", "important");
-  profileAvatarImage.style.setProperty("background", "rgba(11,18,32,.85)", "important");
+  profileAvatarImage.style.setProperty("background", "rgba(73,30,122,.85)", "important");
 }
 
 function renderProfileImage() {
@@ -1163,7 +1193,7 @@ if (importInput) {
 
     if (!normalized.length) throw new Error("No valid projects found");
 
-    projects = normalized.sort(byNewest);
+    projects = sortProjectsByPreferredOrder(normalized);
     saveProjects(projects);
     refreshAll();
   } catch {
@@ -1178,7 +1208,7 @@ if (resetBtn) {
   resetBtn.addEventListener("click", () => {
   const shouldReset = window.confirm("Reset all projects to defaults? This clears your local edits.");
   if (!shouldReset) return;
-  projects = defaultProjects().sort(byNewest);
+  projects = sortProjectsByPreferredOrder(defaultProjects());
   saveProjects(projects);
   clearForm();
   refreshAll();
