@@ -842,6 +842,8 @@ const extractEvaluationPdfBtn = document.getElementById("extractEvaluationPdfBtn
 const evaluationPdfStatus = document.getElementById("evaluationPdfStatus");
 const fieldFeedback = document.getElementById("feedback");
 const fieldImages = document.getElementById("images");
+const projectToc = document.getElementById("projectToc");
+const projectSections = document.getElementById("projectSections");
 
 /* =========
   Render
@@ -1018,13 +1020,78 @@ function currentFilteredProjects() {
     .filter(p => matchesTag(p, tag));
 }
 
+function renderTocAndSections(filtered) {
+  if (!projectToc || !projectSections) return;
+
+  if (filtered.length === 0) {
+    projectToc.innerHTML = "";
+    projectSections.innerHTML = "";
+    return;
+  }
+
+  // TOC quick-links
+  projectToc.innerHTML = filtered.map(p =>
+    `<a class="project-toc-link" href="#section-${esc(p.id)}">${esc(p.title)}</a>`
+  ).join("");
+
+  // Full on-page sections
+  projectSections.innerHTML = filtered.map(p => {
+    const images = getProjectImages(p);
+    const evaluation = getProjectInstructorEvaluation(p);
+    const evaluationPdf = String(p.evaluationPdf || "").trim();
+    const bullets = (p.bullets || []).filter(Boolean);
+    const primaryUrl = getPrimaryProjectUrl(p);
+    const mediaUrl = String(p.media || "").trim();
+
+    const mediaBlock = images.length
+      ? `<div class="project-section-media">${images.map((src, i) =>
+          `<img src="${esc(src)}" alt="${esc(p.title)} preview ${i + 1}" loading="lazy" />`
+        ).join("")}</div>`
+      : "";
+
+    const bulletsBlock = bullets.length
+      ? `<h4 class="modal-section-title">What I did</h4><ul class="list">${bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>`
+      : "";
+
+    const skillsBlock = (p.skills || []).length
+      ? `<div class="chip-row" style="margin:8px 0 0;">${(p.skills || []).map(s => `<span class="chip">${esc(s)}</span>`).join("")}</div>`
+      : "";
+
+    const linksBlock = [
+      primaryUrl ? `<a class="link" href="${esc(primaryUrl)}" target="_blank" rel="noreferrer">View Project</a>` : "",
+      mediaUrl && mediaUrl !== primaryUrl ? `<a class="link" href="${esc(mediaUrl)}" target="_blank" rel="noreferrer">Project Media</a>` : "",
+      evaluationPdf ? `<a class="link" href="${esc(evaluationPdf)}" target="_blank" rel="noreferrer">Instructor Evaluation PDF</a>` : ""
+    ].filter(Boolean).join("");
+
+    const evaluationBlock = evaluation.length
+      ? `<h4 class="modal-section-title">Instructor Evaluation</h4><ul class="list">${evaluation.map(f => `<li>${esc(f)}</li>`).join("")}</ul>`
+      : "";
+
+    return `
+      <section id="section-${esc(p.id)}" class="card project-section">
+        <span class="badge">${esc(p.type || "Project")}</span>
+        <h3>${esc(p.title)}</h3>
+        <p>${esc(p.summary)}</p>
+        ${mediaBlock}
+        ${skillsBlock}
+        ${bulletsBlock}
+        ${evaluationBlock}
+        ${linksBlock ? `<div class="links" style="margin-top:10px;">${linksBlock}</div>` : ""}
+      </section>
+    `;
+  }).join("");
+}
+
 function renderProjects() {
   const filtered = currentFilteredProjects();
 
   if (filtered.length === 0) {
     projectGrid.innerHTML = `<div class="card card-project"><p class="muted">No projects match your search.</p></div>`;
+    renderTocAndSections([]);
     return;
   }
+
+  renderTocAndSections(filtered);
 
   projectGrid.innerHTML = filtered.map(p => {
     const images = getProjectImages(p);
@@ -1060,6 +1127,8 @@ function renderProjects() {
       </article>
     `;
   }).join("");
+
+  // clicking a card scrolls to its on-page section instead of opening modal
 }
 
 function renderAdminList() {
