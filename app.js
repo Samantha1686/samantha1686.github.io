@@ -73,6 +73,9 @@ const CHARITY_PROJECT_3_TITLE = "Project 3 - Charity: Water Website Deployment (
 const PROJECT_6_TITLE = "Project 6 - Reflecting on AI";
 const PROJECT_6_MEDIA = "images/projects/Project 6_ Reflecting on AI.pdf";
 const PROJECT_6_FEEDBACK_PDF = "images/projects/Project 6 Feedback GCA.pdf";
+const PROJECT_5_TITLE = "Project 5 - Data Storytelling";
+const PROJECT_5_MEDIA = "images/projects/Copy of CR Project 5_ Reflecting on AI.pdf";
+const PROJECT_5_FEEDBACK_PDF = "images/projects/Project 5 GCA Feedback.pdf";
 const FILM_PERMIT_PROJECT_TITLE = "Film Permit Analysis Project";
 
 function defaultProjects() {
@@ -101,6 +104,7 @@ function defaultProjects() {
     project9Template(),
     intelCsrProjectTemplate(),
     intelExcelProjectTemplate(),
+    project5Template(),
     project6Template(),
     {
       id: crypto.randomUUID(),
@@ -359,6 +363,46 @@ function intelExcelProjectTemplate() {
   };
 }
 
+function project5Template() {
+  return {
+    id: crypto.randomUUID(),
+    title: PROJECT_5_TITLE,
+    type: "Data Storytelling",
+    summary: "Demonstrated strategic use of AI as a teammate, tool, and tutor—comparing outputs, refining prompts, and integrating AI-supported insights while maintaining ownership of decision-making.",
+    bullets: [
+      "Compared AI-generated outputs and improved prompts with greater specificity to evaluate response quality",
+      "Analyzed opportunities and risks of AI in the evolving job market with balanced, forward-thinking reflection",
+      "Integrated AI responsibly into professional workflows while maintaining strategic ownership"
+    ],
+    skills: [
+      "AI Prompt Engineering",
+      "Evaluating AI Output Quality",
+      "Strategic Use of AI Tools in Professional Workflows",
+      "Research Synthesis and Trend Analysis",
+      "Ethical and Responsible AI Use",
+      "Communication of AI-Supported Insights"
+    ],
+    tags: ["AI", "Strategy", "Data Storytelling"],
+    link: "",
+    media: PROJECT_5_MEDIA,
+    evaluationPdf: PROJECT_5_FEEDBACK_PDF,
+    images: [],
+    instructorEvaluation: [
+      "Samantha demonstrated strong strategic thinking and a thoughtful understanding of how AI can function as a teammate, tool, and tutor in professional work.",
+      "Her reflections were balanced and forward-thinking, acknowledging both the opportunities and risks of AI in the evolving job market.",
+      "She effectively compared AI outputs, improved prompts with greater specificity, and showed clear reasoning when evaluating response quality.",
+      "Overall, her work demonstrated the ability to integrate AI responsibly while maintaining ownership of the strategy and decision-making."
+    ],
+    feedback: [
+      "Samantha demonstrated strong strategic thinking and a thoughtful understanding of how AI can function as a teammate, tool, and tutor in professional work.",
+      "Her reflections were balanced and forward-thinking, acknowledging both the opportunities and risks of AI in the evolving job market.",
+      "She effectively compared AI outputs, improved prompts with greater specificity, and showed clear reasoning when evaluating response quality.",
+      "Overall, her work demonstrated the ability to integrate AI responsibly while maintaining ownership of the strategy and decision-making."
+    ],
+    createdAt: Date.now()
+  };
+}
+
 function project6Template() {
   return {
     id: crypto.randomUUID(),
@@ -536,6 +580,10 @@ function migrateProjects(rawProjects) {
     const key = normalizeProjectKey(item?.title);
     return key.includes("project 9") || key.includes("cerave seo") || key.includes("linkedin seo case study");
   });
+  const hasProject5 = rawProjects.some(item => {
+    const key = normalizeProjectKey(item?.title);
+    return key.includes("project 5") && (key.includes("data storytelling") || key.includes("reflecting") || key.includes("ai strategy"));
+  });
 
   let next = rawProjects.filter(item => normalizeProjectKey(item?.title) !== normalizeProjectKey(oldTitle));
   let changed = next.length !== rawProjects.length;
@@ -586,6 +634,12 @@ function migrateProjects(rawProjects) {
 
   if (!hasProject9) {
     next.push(project9);
+    changed = true;
+  }
+
+  const project5 = project5Template();
+  if (!hasProject5) {
+    next.push(project5);
     changed = true;
   }
 
@@ -757,6 +811,7 @@ function canonicalProjectKey(project) {
   if (key.includes("project 9") || key.includes("cerave seo") || key.includes("linkedin seo case study")) return "project-9-seo";
   if (key.includes("project 6") && key.includes("reflect")) return "project-6-reflect";
   if (key.includes("project 6 reflecting on ai")) return "project-6-reflect";
+  if (key.includes("project 5") && (key.includes("data storytelling") || key.includes("reflect") || key.includes("ai strategy"))) return "project-5-storytelling";
   if (key.includes("intel csr metrics") || key.includes("sustainability data analysis")) return "intel-csr";
   if (key.includes("sustainability impact analysis") || key.includes("excel dataset") || (key.includes("project 4") && key.includes("sustainability"))) return "intel-excel";
   if ((key.includes("charity water") || key.includes("charity")) && key.includes("project 1")) return "charity-1";
