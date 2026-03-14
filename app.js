@@ -299,19 +299,38 @@ function abTestingProjectTemplate() {
     id: crypto.randomUUID(),
     title: AB_TESTING_PROJECT_TITLE,
     type: "Analytics",
-    summary: "Analyzed A/B test results to evaluate messaging and engagement performance for The Recording Academy.",
+    summary: "Designed and evaluated a marketing A/B experiment with statistically grounded hypotheses, sample-size planning, confounding-variable controls, and strategy-focused recommendations.",
     bullets: [
-      "Compared variant performance to identify stronger content and CTA direction",
-      "Reviewed core metrics in Excel to determine winner and uplift",
-      "Summarized recommendations for campaign optimization"
+      "Built well-structured hypotheses aligned with A/B testing best practices",
+      "Calculated minimum detectable effect (MDE) and required sample size to support valid testing decisions",
+      "Identified confounding variables and mitigation strategies, then translated results into growth-oriented recommendations"
     ],
-    skills: ["Excel", "A/B Testing", "Data Analysis", "Reporting"],
+    skills: [
+      "A/B Testing Experiment Design",
+      "Statistical Reasoning and Hypothesis Testing",
+      "Marketing Analytics Calculations",
+      "Data Interpretation and Decision Making",
+      "Identifying Confounding Variables",
+      "Data-Driven Marketing Strategy"
+    ],
     tags: ["Analytics", "Excel", "Experimentation"],
     link: "",
     media: AB_TESTING_MEDIA,
+    evaluationPdf: "images/projects/Project 8 AB testing Feedback GCA.pdf",
     images: [],
+    instructorEvaluation: [
+      "This project demonstrated strong analytical thinking and a clear understanding of experimental design in marketing.",
+      "The hypotheses were well structured and aligned with A/B testing best practices.",
+      "Accurate calculations for minimum detectable effect (MDE) and required sample size showed confidence in marketing analytics.",
+      "The analysis also considered realistic confounding variables and mitigation strategies to ensure valid results.",
+      "Recommendations were grounded in statistical interpretation and connected to broader strategic growth goals."
+    ],
     feedback: [
-      "Add one concise chart or table snapshot in the project notes to highlight the winning variant."
+      "This project demonstrated strong analytical thinking and a clear understanding of experimental design in marketing.",
+      "The hypotheses were well structured and aligned with A/B testing best practices.",
+      "Accurate calculations for minimum detectable effect (MDE) and required sample size showed confidence in marketing analytics.",
+      "The analysis also considered realistic confounding variables and mitigation strategies to ensure valid results.",
+      "Recommendations were grounded in statistical interpretation and connected to broader strategic growth goals."
     ],
     createdAt: Date.now()
   };
