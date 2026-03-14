@@ -619,6 +619,9 @@ function canonicalProjectKey(project) {
   if (key.includes("project 9") || key.includes("cerave seo") || key.includes("linkedin seo case study")) return "project-9-seo";
   if (key.includes("intel csr metrics") || key.includes("sustainability data analysis")) return "intel-csr";
   if (key.includes("sustainability impact analysis") || key.includes("excel dataset")) return "intel-excel";
+  if (key.includes("charity water") && key.includes("project 1")) return "charity-1";
+  if (key.includes("charity water") && key.includes("project 2")) return "charity-2";
+  if (key.includes("charity water") && key.includes("project 3")) return "charity-3";
   if (key.includes("charity water project 1") || key.includes("mockup landing page")) return "charity-1";
   if (key.includes("charity water project 2") || key.includes("game concept")) return "charity-2";
   if (key.includes("charity water project 3")) return "charity-3";
