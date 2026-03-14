@@ -813,7 +813,17 @@ function loadProjects() {
   try {
     const data = JSON.parse(raw);
     if (!Array.isArray(data)) return defaultProjects();
+    if (data.length === 0) {
+      const defaults = defaultProjects();
+      saveProjects(defaults);
+      return defaults;
+    }
     const migrated = migrateProjects(data);
+    if (!Array.isArray(migrated) || migrated.length === 0) {
+      const defaults = defaultProjects();
+      saveProjects(defaults);
+      return defaults;
+    }
     if (migrated !== data) {
       saveProjects(migrated);
     }

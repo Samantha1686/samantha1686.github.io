@@ -209,6 +209,7 @@ h1{
 
 .section{ padding: 34px 0; }
 .section.alt{ background: rgba(255,255,255,.02); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.featured{ padding-top: 18px; }
 .section-head{
   display:flex; align-items:flex-end; justify-content:space-between;
   gap:16px; flex-wrap:wrap;
@@ -235,6 +236,7 @@ h1{
   border: 1px solid rgba(61,31,103,.38);
   font-weight: 700;
 }
+.featured-card{ cursor:default; }
 
 #tagFilter option{
   color: #1d1232;
@@ -245,6 +247,17 @@ h1{
   display:grid;
   grid-template-columns: repeat(3, 1fr);
   gap:14px;
+}
+.featured-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:14px;
+}
+@media (max-width: 900px){
+  .featured-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px){
+  .featured-grid{ grid-template-columns: 1fr; }
 }
 @media (max-width: 900px){
   .grid{ grid-template-columns: repeat(2, 1fr); }
@@ -409,6 +422,9 @@ h1{
   margin:0;
   line-height:1.55;
 }
+.cert-card p + p{
+  margin-top: 8px;
+}
 .cert-issuer{
   font-size:12px;
   letter-spacing:.4px;
@@ -560,86 +576,6 @@ h1{
 }
 hr.sep{ border:none; border-top:1px solid var(--line); margin:16px 0; }
 .list{ margin:0; padding-left:18px; line-height:1.7; }
-
-/* Admin panel */
-.admin{
-  position: fixed;
-  right: 14px;
-  bottom: 14px;
-  width: min(560px, 92vw);
-  max-height: 86vh;
-  overflow: auto;
-  border: 1px solid var(--line);
-  background: rgba(77,27,130,.95);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  padding: 16px;
-  z-index: 70;
-}
-.admin[hidden]{ display:none; }
-.admin-toggle{
-  position: fixed;
-  right: 14px;
-  bottom: 14px;
-  z-index: 60;
-}
-.admin-head h2{ margin:0 0 6px; }
-.admin-section{
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-}
-.admin-section h3,
-.admin-list h3{
-  margin: 0 0 10px;
-}
-.admin-actions{ display:flex; gap:10px; flex-wrap:wrap; margin: 12px 0 14px; }
-.admin-inline-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-.form-row{ display:grid; gap:10px; margin-bottom:12px; }
-.form-row label{ display:grid; gap:6px; font-weight:700; color: var(--text); }
-.form-row .input, .form-row .textarea{ width:100%; }
-.form-row.two{ grid-template-columns: 1fr 1fr; }
-.form-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 4px; }
-.field-note{ margin:0; font-size:13px; line-height:1.5; }
-.admin-list{ margin-top: 14px; }
-#adminList{ display:grid; gap:8px; margin-top:10px; }
-.admin-item{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:10px;
-  padding:10px 12px;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background: rgba(255,255,255,.03);
-}
-.admin-item strong{ font-size:14px; }
-.admin-item .mini{ color: var(--muted); font-size:12px; }
-.admin-item .row{ display:flex; gap:8px; flex-wrap:wrap; }
-.admin-image-preview{
-  margin-top:4px;
-  max-width: 360px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.file-btn{ position:relative; overflow:hidden; }
-.file-input{
-  position:absolute;
-  inset:0;
-  opacity:0;
-  cursor:pointer;
-}
 @media (max-width: 640px){
-  .admin{
-    right: 10px;
-    left: 10px;
-    bottom: 72px;
-    width: auto;
-    max-height: calc(100vh - 88px);
-  }
-  .admin-toggle{
-    right: 10px;
-    bottom: 10px;
-  }
-  .form-row.two{ grid-template-columns: 1fr; }
+  .project-section-media{ grid-template-columns: 1fr; }
 }
