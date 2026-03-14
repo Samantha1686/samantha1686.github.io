@@ -344,26 +344,39 @@ function project6Template() {
     id: crypto.randomUUID(),
     title: PROJECT_6_TITLE,
     type: "Reflection",
-    summary: "Written reflection examining how AI tools are transforming digital marketing workflows, content strategy, and creative decision-making.",
+    summary: "Analyzed AI as a teammate, tool, and tutor in professional workflows, evaluating prompt refinement, output quality, emerging AI trends, and responsible human oversight.",
     bullets: [
-      "Analyzed the role of AI in modern content creation, campaign strategy, and audience targeting",
-      "Evaluated ethical considerations and limitations of AI in marketing contexts",
-      "Reflected on personal experience using AI tools throughout the course and professional development"
+      "Compared AI responses to demonstrate understanding of prompt refinement and output quality evaluation",
+      "Researched emerging AI trends including agentic systems and budget optimization strategies",
+      "Balanced opportunities AI creates with the importance of ethical oversight and human decision-making"
     ],
     skills: [
-      "Critical Thinking",
-      "AI Tool Proficiency",
-      "Digital Marketing Strategy",
-      "Professional Writing",
-      "Ethical Reasoning"
+      "AI Prompt Engineering",
+      "Evaluating AI Output Quality",
+      "Strategic Thinking about AI Adoption",
+      "Research Synthesis and Trend Analysis",
+      "Ethical and Responsible AI Usage",
+      "Professional Communication of AI Insights"
     ],
     tags: ["AI", "Strategy", "Reflection"],
     link: "",
     media: PROJECT_6_MEDIA,
     evaluationPdf: PROJECT_6_FEEDBACK_PDF,
     images: [],
-    instructorEvaluation: [],
-    feedback: [],
+    instructorEvaluation: [
+      "This project demonstrated thoughtful analysis of how AI can function as a teammate, tool, and tutor in professional workflows.",
+      "The reflection balanced the opportunities AI creates with the importance of responsible oversight and human decision-making.",
+      "Strong comparisons between AI responses showed an understanding of prompt refinement and evaluation of output quality.",
+      "The project also highlighted forward-thinking research into emerging AI trends such as agentic systems and budget optimization.",
+      "Clear steps for staying current as AI continues to evolve in the workplace were outlined effectively."
+    ],
+    feedback: [
+      "This project demonstrated thoughtful analysis of how AI can function as a teammate, tool, and tutor in professional workflows.",
+      "The reflection balanced the opportunities AI creates with the importance of responsible oversight and human decision-making.",
+      "Strong comparisons between AI responses showed an understanding of prompt refinement and evaluation of output quality.",
+      "The project also highlighted forward-thinking research into emerging AI trends such as agentic systems and budget optimization.",
+      "Clear steps for staying current as AI continues to evolve in the workplace were outlined effectively."
+    ],
     createdAt: Date.now()
   };
 }
