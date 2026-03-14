@@ -63,6 +63,7 @@ const PROJECT_MEDIA_LIBRARY = {
   "linkedin seo case study": PROJECT_9_SEO_MEDIA,
   "sustainability data analysis intel csr metrics": INTEL_CSR_MEDIA,
   "sustainability impact analysis excel dataset": INTEL_EXCEL_MEDIA,
+  "project 4 sustainability data analysis excel": INTEL_EXCEL_MEDIA,
   "film permits student": FILM_PERMIT_MEDIA,
   "film permit project": FILM_PERMIT_MEDIA
 };
@@ -319,21 +320,40 @@ function intelCsrProjectTemplate() {
 function intelExcelProjectTemplate() {
   return {
     id: crypto.randomUUID(),
-    title: "Sustainability Impact Analysis (Excel Dataset)",
+    title: "Project 4 - Sustainability Data Analysis (Excel)",
     type: "Analytics",
-    summary: "Analyzed a large dataset to evaluate sustainability impact across devices and regions.",
+    summary: "Applied Excel formulas to analyze ~19,700 device records, generating actionable sustainability recommendations around device repurposing, energy savings, and impact reporting.",
     bullets: [
-      "Analyzed ~19,700 records across variables like energy savings, CO₂ saved, and recycling rate",
-      "Used Excel functions (COUNT, AVERAGE) to summarize trends and compare segments",
-      "Outlined insights for impact reporting"
+      "Used COUNT, AVERAGE, COUNTIF, and AVERAGEIF to calculate insights on device age, energy savings, and repurposing trends",
+      "Translated data findings into strategic recommendations to increase device repurposing and improve sustainability outcomes",
+      "Incorporated AI-assisted insights to inform final recommendations and decision-making"
     ],
-    skills: ["Excel", "Data Analysis", "Reporting"],
-    tags: ["Analytics", "Excel"],
+    skills: [
+      "Data Analysis using Excel",
+      "Spreadsheet Formulas (COUNT, COUNTIF, AVERAGE, AVERAGEIF)",
+      "Data Interpretation and Insight Generation",
+      "Business Recommendation Development",
+      "Sustainability and Impact Analysis",
+      "Data-Driven Decision Making"
+    ],
+    tags: ["Analytics", "Excel", "Sustainability"],
     link: "",
     media: INTEL_EXCEL_MEDIA,
+    evaluationPdf: "images/projects/Project 4 Feedback GCA.pdf",
     images: [],
+    instructorEvaluation: [
+      "This project showcased strong analytical thinking and effective use of Excel formulas to generate meaningful insights from data.",
+      "Accurate use of functions such as COUNT, AVERAGE, COUNTIF, and AVERAGEIF allowed for clear calculations related to device age, energy savings, and repurposing trends.",
+      "The analysis successfully translated data into actionable recommendations, including strategies to increase device repurposing and improve sustainability outcomes.",
+      "Feedback recommended reviewing one formula range in the summary table to ensure accuracy.",
+      "Expanding on how AI insights informed the final strategic recommendations was also suggested as a next step."
+    ],
     feedback: [
-      "If possible, add 1 chart (even a simple bar chart) to make insights instantly readable."
+      "This project showcased strong analytical thinking and effective use of Excel formulas to generate meaningful insights from data.",
+      "Accurate use of functions such as COUNT, AVERAGE, COUNTIF, and AVERAGEIF allowed for clear calculations related to device age, energy savings, and repurposing trends.",
+      "The analysis successfully translated data into actionable recommendations, including strategies to increase device repurposing and improve sustainability outcomes.",
+      "Feedback recommended reviewing one formula range in the summary table to ensure accuracy.",
+      "Expanding on how AI insights informed the final strategic recommendations was also suggested as a next step."
     ],
     createdAt: Date.now()
   };
@@ -506,7 +526,7 @@ function migrateProjects(rawProjects) {
   });
   const hasExcelProject = rawProjects.some(item => {
     const key = normalizeProjectKey(item?.title);
-    return key.includes("sustainability impact analysis") || key.includes("excel dataset");
+    return key.includes("sustainability impact analysis") || key.includes("excel dataset") || (key.includes("project 4") && key.includes("sustainability"));
   });
   const hasAbTestingProject = rawProjects.some(item => {
     const key = normalizeProjectKey(item?.title);
@@ -573,7 +593,7 @@ function migrateProjects(rawProjects) {
     const key = normalizeProjectKey(project?.title);
     const isGrammy = key.includes("grammy") && key.includes("social media");
     const isCsr = key.includes("intel csr metrics") || key.includes("sustainability data analysis");
-    const isExcel = key.includes("sustainability impact analysis") || key.includes("excel dataset");
+    const isExcel = key.includes("sustainability impact analysis") || key.includes("excel dataset") || (key.includes("project 4") && key.includes("sustainability"));
     const isAbTesting = key.includes("ab testing") || key.includes("recording academy");
     const isProject9 = key.includes("project 9") || key.includes("cerave seo") || key.includes("linkedin seo case study");
     if (isGrammy) {
@@ -738,7 +758,7 @@ function canonicalProjectKey(project) {
   if (key.includes("project 6") && key.includes("reflect")) return "project-6-reflect";
   if (key.includes("project 6 reflecting on ai")) return "project-6-reflect";
   if (key.includes("intel csr metrics") || key.includes("sustainability data analysis")) return "intel-csr";
-  if (key.includes("sustainability impact analysis") || key.includes("excel dataset")) return "intel-excel";
+  if (key.includes("sustainability impact analysis") || key.includes("excel dataset") || (key.includes("project 4") && key.includes("sustainability"))) return "intel-excel";
   if ((key.includes("charity water") || key.includes("charity")) && key.includes("project 1")) return "charity-1";
   if ((key.includes("charity water") || key.includes("charity")) && key.includes("project 2")) return "charity-2";
   if ((key.includes("charity water") || key.includes("charity")) && key.includes("project 3")) return "charity-3";
