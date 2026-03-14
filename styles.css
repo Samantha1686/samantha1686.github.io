@@ -277,10 +277,15 @@ h1{
 @media (max-width: 600px){
   .grid{ grid-template-columns: 1fr; }
 }
+.card-project,
+.project-card{
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+}
+
 .card-project{
-  padding:16px;
   cursor:pointer;
-  border-color: rgba(216,163,255,.36);
   transition: transform .12s ease, border-color .14s ease, box-shadow .14s ease;
 }
 .card-project:hover{
