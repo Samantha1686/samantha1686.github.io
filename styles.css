@@ -229,6 +229,18 @@ h1{
 }
 .input::placeholder{ color: rgba(231,213,255,.82); }
 
+#tagFilter{
+  color: #1d1232;
+  background: #f6ecff;
+  border: 1px solid rgba(61,31,103,.38);
+  font-weight: 700;
+}
+
+#tagFilter option{
+  color: #1d1232;
+  background: #ffffff;
+}
+
 .grid{
   display:grid;
   grid-template-columns: repeat(3, 1fr);
@@ -285,26 +297,37 @@ h1{
   font-weight:700;
 }
 .project-toc{
-  margin: 0 0 14px;
+  margin: 0 0 16px;
+  padding: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  border: 1px solid rgba(248,239,255,.35);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
 }
 .project-toc-link{
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(248,239,255,.8);
-  background: rgba(35,13,68,.84);
-  color: #ffffff;
+  letter-spacing: .02em;
+  padding: 7px 11px;
+  border-radius: 10px;
+  border: 1px solid rgba(248,239,255,.45);
+  background: rgba(22,8,47,.82);
+  color: #f8f1ff;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
 }
 .project-toc-link:hover{
-  background: rgba(55,21,104,.9);
-  border-color: #ffffff;
+  background: rgba(78,34,136,.92);
+  border-color: rgba(255,255,255,.95);
+  transform: translateY(-1px);
+}
+.project-toc-link:focus-visible{
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 .project-toc-empty{
   margin: 0 0 14px;
