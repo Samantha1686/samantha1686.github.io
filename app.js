@@ -11,11 +11,11 @@ const FILM_PERMIT_IMAGE = "images/projects/film-permits-student.png";
 const FILM_PERMIT_MEDIA = "images/projects/Film_Permits_Student.xlsx";
 const AB_TESTING_MEDIA = "images/projects/AB-Testing-The-Recording-Academy%20(1)%20(1).xlsx";
 const GRAMMY_MEDIA = "images/projects/Copy of Grammys Social Media Project.pptx1.pdf";
-const GRAMMY_PROJECT_TITLE = "Project 7 - GRAMMY Awards Social Media Campaign Concept";
-const AB_TESTING_PROJECT_TITLE = "Project 8 - A/B Testing - The Recording Academy";
+const GRAMMY_PROJECT_TITLE = "GRAMMY Awards Social Media Campaign Concept";
+const AB_TESTING_PROJECT_TITLE = "A/B Testing - The Recording Academy";
 const PROJECT_9_SEO_MEDIA = "images/projects/assets/Project 9 CeraVe SEO Research.pdf";
 const PROJECT_9_SEO_LINK = "images/projects/assets/Project 9 Part 2 linkedin_seo_case_study_polished_carousel.pdf";
-const PROJECT_9_TITLE = "Project 9 - CeraVe SEO Research and LinkedIn SEO Case Study";
+const PROJECT_9_TITLE = "CeraVe SEO Research and LinkedIn SEO Case Study";
 const INTEL_CSR_MEDIA = "images/projects/Intel's Corporate Responsibilty Report.pdf";
 const INTEL_CSR_IMAGES = [
   "images/projects/sustainability-data-analysis-intel-csr-metrics-1.png",
@@ -27,9 +27,7 @@ const PROJECT_IMAGE_LIBRARY = {
   "grammy awards social media campaign concept": [
     "images/projects/grammy-awards-social-media-campaign-concept.png"
   ],
-  "project 7 grammy awards social media campaign concept": [
-    "images/projects/grammy-awards-social-media-campaign-concept.png"
-  ],
+
   "sustainability data analysis intel csr metrics": [...INTEL_CSR_IMAGES],
   "intel csr metrics": [...INTEL_CSR_IMAGES],
   "charity water project 1 mockup landing page": [
@@ -54,26 +52,26 @@ const PROJECT_IMAGE_LIBRARY = {
 };
 const PROJECT_MEDIA_LIBRARY = {
   "grammy awards social media campaign concept": GRAMMY_MEDIA,
-  "project 7 grammy awards social media campaign concept": GRAMMY_MEDIA,
+
   "ab testing the recording academy": AB_TESTING_MEDIA,
-  "project 8 a b testing the recording academy": AB_TESTING_MEDIA,
+
   "recording academy ab testing": AB_TESTING_MEDIA,
-  "project 9 cerave seo research linkedin seo case study": PROJECT_9_SEO_MEDIA,
-  "project 9 cerave seo research": PROJECT_9_SEO_MEDIA,
+  "cerave seo research and linkedin seo case study": PROJECT_9_SEO_MEDIA,
+  "cerave seo research": PROJECT_9_SEO_MEDIA,
   "linkedin seo case study": PROJECT_9_SEO_MEDIA,
   "sustainability data analysis intel csr metrics": INTEL_CSR_MEDIA,
   "sustainability impact analysis excel dataset": INTEL_EXCEL_MEDIA,
-  "project 4 sustainability data analysis excel": INTEL_EXCEL_MEDIA,
+  "sustainability data analysis excel dataset": INTEL_EXCEL_MEDIA,
   "film permits student": FILM_PERMIT_MEDIA,
   "film permit project": FILM_PERMIT_MEDIA
 };
-const CHARITY_PROJECT_1_TITLE = "Project 1 - Charity: Water Landing Page Design";
-const CHARITY_PROJECT_2_TITLE = "Project 2 - Charity: Water Gamified Mobile Concept";
-const CHARITY_PROJECT_3_TITLE = "Project 3 - Charity: Water Website Deployment (HTML/CSS)";
-const PROJECT_6_TITLE = "Project 6 - Reflecting on AI";
+const CHARITY_PROJECT_1_TITLE = "Charity: Water Landing Page Design";
+const CHARITY_PROJECT_2_TITLE = "Charity: Water Gamified Mobile Concept";
+const CHARITY_PROJECT_3_TITLE = "Charity: Water Website Deployment (HTML/CSS)";
+const PROJECT_6_TITLE = "Reflecting on AI";
 const PROJECT_6_MEDIA = "images/projects/Project 6_ Reflecting on AI.pdf";
 const PROJECT_6_FEEDBACK_PDF = "images/projects/Project 6 Feedback GCA.pdf";
-const PROJECT_5_TITLE = "Project 5 - Data Storytelling";
+const PROJECT_5_TITLE = "Data Storytelling";
 const PROJECT_5_MEDIA = "images/projects/Copy of CR Project 5_ Reflecting on AI.pdf";
 const PROJECT_5_FEEDBACK_PDF = "images/projects/Project 5 GCA Feedback.pdf";
 const FILM_PERMIT_PROJECT_TITLE = "Film Permit Analysis Project";
