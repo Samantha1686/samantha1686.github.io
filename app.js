@@ -30,14 +30,14 @@ const PROJECT_IMAGE_LIBRARY = {
 
   "sustainability data analysis intel csr metrics": [...INTEL_CSR_IMAGES],
   "intel csr metrics": [...INTEL_CSR_IMAGES],
-  "charity water project 1 mockup landing page": [
+  "charity water mockup landing page": [
     "images/projects/charity-water-donation-landing-page-campaign-2.png"
   ],
-  "charity water project 2 game concept": [
+  "charity water game concept": [
     "images/projects/charity-water-donation-landing-page-campaign-3.png",
     "images/projects/charity-water-donation-landing-page-campaign-4.png"
   ],
-  "charity water project 3 landing page": [
+  "charity water landing page": [
     "images/projects/charity-water-donation-landing-page-campaign.png"
   ],
   "charity water donation landing page campaign": [
@@ -625,19 +625,19 @@ function migrateProjects(rawProjects) {
   });
   const hasExcelProject = rawProjects.some(item => {
     const key = normalizeProjectKey(item?.title);
-    return key.includes("sustainability impact analysis") || key.includes("excel dataset") || (key.includes("project 4") && key.includes("sustainability"));
+    return key.includes("sustainability impact analysis") || key.includes("excel dataset") || key.includes("sustainability");
   });
   const hasAbTestingProject = rawProjects.some(item => {
     const key = normalizeProjectKey(item?.title);
     return key.includes("ab testing") || key.includes("recording academy");
   });
-  const hasProject9 = rawProjects.some(item => {
+    const hasProject9 = rawProjects.some(item => {
     const key = normalizeProjectKey(item?.title);
-    return key.includes("project 9") || key.includes("cerave seo") || key.includes("linkedin seo case study");
+    return key.includes("cerave seo") || key.includes("linkedin seo case study");
   });
-  const hasProject5 = rawProjects.some(item => {
+    const hasProject5 = rawProjects.some(item => {
     const key = normalizeProjectKey(item?.title);
-    return key.includes("project 5") && (key.includes("data storytelling") || key.includes("reflecting") || key.includes("ai strategy"));
+    return key.includes("data storytelling") || key.includes("reflecting") || key.includes("ai strategy");
   });
 
   let next = rawProjects.filter(item => normalizeProjectKey(item?.title) !== normalizeProjectKey(oldTitle));
@@ -702,9 +702,9 @@ function migrateProjects(rawProjects) {
     const key = normalizeProjectKey(project?.title);
     const isGrammy = key.includes("grammy") && key.includes("social media");
     const isCsr = key.includes("intel csr metrics") || key.includes("sustainability data analysis");
-    const isExcel = key.includes("sustainability impact analysis") || key.includes("excel dataset") || (key.includes("project 4") && key.includes("sustainability"));
+    const isExcel = key.includes("sustainability impact analysis") || key.includes("excel dataset") || key.includes("sustainability");
     const isAbTesting = key.includes("ab testing") || key.includes("recording academy");
-    const isProject9 = key.includes("project 9") || key.includes("cerave seo") || key.includes("linkedin seo case study");
+    const isProject9 = key.includes("cerave seo") || key.includes("linkedin seo case study");
     if (isGrammy) {
       const currentMedia = String(project.media || "").trim();
       const nextMedia = currentMedia || GRAMMY_MEDIA;
@@ -873,19 +873,14 @@ function canonicalProjectKey(project) {
 
   if (key.includes("grammy") && key.includes("social media")) return "grammy";
   if (key.includes("ab testing") || key.includes("recording academy")) return "ab-testing";
-  if (key.includes("project 9") || key.includes("cerave seo") || key.includes("linkedin seo case study")) return "project-9-seo";
-  if (key.includes("project 6") && key.includes("reflect")) return "project-6-reflect";
-  if (key.includes("project 6 reflecting on ai")) return "project-6-reflect";
-  if (key.includes("project 5") && (key.includes("data storytelling") || key.includes("reflect") || key.includes("ai strategy"))) return "project-5-storytelling";
+  if (key.includes("cerave seo") || key.includes("linkedin seo case study")) return "project-9-seo";
+  if (key.includes("reflect") && key.includes("ai")) return "project-6-reflect";
+  if (key.includes("data storytelling") || key.includes("ai strategy")) return "project-5-storytelling";
   if (key.includes("intel csr metrics") || key.includes("sustainability data analysis")) return "intel-csr";
-  if (key.includes("sustainability impact analysis") || key.includes("excel dataset") || (key.includes("project 4") && key.includes("sustainability"))) return "intel-excel";
-  if ((key.includes("charity water") || key.includes("charity")) && key.includes("project 1")) return "charity-1";
-  if ((key.includes("charity water") || key.includes("charity")) && key.includes("project 2")) return "charity-2";
-  if ((key.includes("charity water") || key.includes("charity")) && key.includes("project 3")) return "charity-3";
-  if (key.includes("charity water project 1") || key.includes("mockup landing page")) return "charity-1";
-  if (key.includes("charity water project 2") || key.includes("game concept")) return "charity-2";
-  if (key.includes("charity water project 3")) return "charity-3";
-  if (key.includes("charity water") && key.includes("landing page")) return "charity-3";
+  if (key.includes("sustainability impact analysis") || key.includes("excel dataset") || key.includes("sustainability")) return "intel-excel";
+  if ((key.includes("charity water") || key.includes("charity")) && key.includes("mockup landing page")) return "charity-1";
+  if ((key.includes("charity water") || key.includes("charity")) && key.includes("game concept")) return "charity-2";
+  if ((key.includes("charity water") || key.includes("charity")) && key.includes("landing page")) return "charity-3";
   if (isFilmPermitProjectKey(key)) return "film-permit";
 
   return "other";
