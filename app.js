@@ -379,7 +379,7 @@ function intelCsrProjectTemplate() {
 function intelExcelProjectTemplate() {
   return {
     id: crypto.randomUUID(),
-    title: "Project 4 - Sustainability Data Analysis (Excel)",
+    title: "Sustainability Data Analysis (Excel)",
     type: "Analytics",
     summary: "Applied Excel formulas to analyze ~19,700 device records, generating actionable sustainability recommendations around device repurposing, energy savings, and impact reporting.",
     bullets: [
